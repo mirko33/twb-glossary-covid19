@@ -1,6 +1,7 @@
 module.exports = {
   'publicPath': '',
   "assetsDir": 'src/assets',
+
   "pwa": {
     "name": 'TWB COVID-19 Glossary',
     "themeColor": "#e8991c",
@@ -21,7 +22,10 @@ module.exports = {
       ]
     },
   },
+
   "transpileDependencies": [
     "vuetify"
-  ]
+  ],
+
+  publicPath: ''
 }
