@@ -29,7 +29,20 @@
         v-slot:default="{ hover }"
     >
  
-     <v-data-table dense light :headers="selectedHeaders" :items="glossary.glossary" class="elevation-1" :disable-sort=true :search="search">
+     <v-data-table dense light :headers="selectedHeaders" :expanded="expanded" :item-key="id" @click:row="expandRow" :items="glossary.glossary" class="elevation-1" :single-expand="true" :disable-sort=true :search="search">
+     <template v-slot:expanded-item="{ headers, item }">
+       <td :colspan="headers.length">
+<v-card
+    class="mx-auto" 
+    color="#f6f1e9"
+  >
+          <v-card-title>{{ item.English.term }}</v-card-title>
+          <v-card-text>{{ item.English.definition }}</v-card-text>
+           <div class="datatable-container"></div>
+        </v-card>
+</td>
+       <!--<td :colspan="headers.length">Definition: {{ item.English.definition }}</td>-->
+     </template>
      <template #item.ar.term="{item}">
       <div style="text-align:right;">
        <span>{{item.ar.term}}</span>
@@ -73,6 +86,7 @@ export default {
       glossary: json,
       search: '',
       value: [],
+      expanded: [],
       selectedHeaders: [],
       dialog: false,
       headers: [
@@ -98,6 +112,11 @@ export default {
         typeof value === 'string' &&
         value.toString().toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) !== -1
     },
+    expandRow (item) {
+      //if (item.English.definition) {
+        this.expanded = item === this.expanded[0] ? [] : [item]
+      //}
+    }
   },
   watch: {
     value(val) {
