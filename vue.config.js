@@ -8,7 +8,7 @@ module.exports = {
     "appleMobileWebAppCapable": 'yes',
     "manifestOptions": {
       "background_color": "#e8991c"
-    }
+    },
     workboxOptions: {
       runtimeCaching: [
         {
